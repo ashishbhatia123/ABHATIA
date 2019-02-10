@@ -1,0 +1,31 @@
+/*//plays with equals method
+hash code 
+hash map 
+by just using instance of and getclass 
+!(obj instanceof A)  in class A, instead of ,getClass() != obj.getClass()
+in this jus change not equals to to ==  
+getClass() != obj.getClass()  =>getClass() == obj.getClass()
+*** see the magic key having same value will be stored in hash map 
+*** ut conclusion is obj1.equals(obj2)// true 
+*** obj2.equals(obj1)// false 
+thats why obj1 and obj2 stored in an hash map after having same key and value 
+*/
+
+
+
+output 
+
+A hashode
+-1408530904
+B hashode
+-1408530904
+bydefault hash code
+366712642
+1829164700
+A hashode
+B hashode
+1
+true
+false
+false
+[A [a=1, b=ashish], B [c=1, d=ashish]]
