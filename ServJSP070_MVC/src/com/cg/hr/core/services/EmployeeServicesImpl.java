@@ -10,7 +10,7 @@ import com.cg.hr.core.exceptions.EmpException;
 public class EmployeeServicesImpl implements IEmployeeServices {
 	private IEmployeeDao dao;
 
-	public EmployeeServicesImpl() {
+	public EmployeeServicesImpl() throws EmpException {
 		super();
 		dao= new EmployeeDaoImpl();
 	}

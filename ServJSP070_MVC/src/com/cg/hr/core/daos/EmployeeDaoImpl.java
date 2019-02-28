@@ -1,5 +1,10 @@
 package com.cg.hr.core.daos;
 
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
@@ -8,19 +13,23 @@ import javax.persistence.TypedQuery;
 
 import com.cg.hr.core.beans.Employee;
 import com.cg.hr.core.exceptions.EmpException;
+import com.cg.hr.core.util.JDBCUtil;
 import com.cg.hr.core.util.JPAUtil;
 
 public class EmployeeDaoImpl implements IEmployeeDao{
 
-	EntityManager em= null;
-	EntityTransaction entityTran  = null;
+/*	EntityManager em= null;
+	EntityTransaction entityTran  = null;*/
+	private Connection connect ;
 	
-	public EmployeeDaoImpl() {
+	public EmployeeDaoImpl() throws EmpException {
 		
-		em= JPAUtil.getEntityManager();
-		entityTran = em.getTransaction();
+		/*em= JPAUtil.getEntityManager();
+		entityTran = em.getTransaction();*/
+		JDBCUtil util = new JDBCUtil();
+		connect=util.getConnect();
 	}
-/*
+/*s
 	@Override
 	public Employee addEmployee(Employee emp) {
 		
@@ -32,17 +41,66 @@ public class EmployeeDaoImpl implements IEmployeeDao{
 
 	@Override
 	public ArrayList<Employee> fetchAllEmp() throws EmpException {
+		Statement stmt = null;
+		ResultSet rs =null;
+		ArrayList<Employee> empList = new ArrayList<>();
 		try
 		{// TODO Auto-generated method stub
-		String selAllQry ="select emps from Employee emps"; //first name must be equal to second i.e emps
+		/*String selAllQry ="select emps from Employee emps"; //first name must be equal to second i.e emps
 		TypedQuery<Employee> tq = em.createQuery(selAllQry, Employee.class);
-		ArrayList<Employee> empList = (ArrayList<Employee>) tq.getResultList();
+		ArrayList<Employee> empList = (ArrayList<Employee>) tq.getResultList();*/
+			stmt =connect.createStatement();
+			rs = stmt.executeQuery("Select * from emp1");
+			while(rs.next())
+			{
+				int empNo = rs.getInt("emp_id");
+				String empNm =rs.getString( "emp_name");
+				float empSal =rs.getFloat("emp_sal");
+				
+				Employee emp= new Employee(empNo, empNm, empSal);
+				empList.add(emp);
+			}
+		
+		
 		return empList;
-	}
+		}
+		
 		catch(Exception e)
 		{
-			throw new EmpException("Something went wrong in fetchAll()");
+			
+				throw new EmpException("Something went wrong in fetchAll()");
+			
 		}
+		finally
+		{
+			try
+			{
+			if(rs!=null)
+			{
+				rs.close();
+			}
+			if(stmt!=null)
+			{
+				stmt.close();
+			}
+			}
+			catch(SQLException e)
+			{
+				throw new EmpException("something wrong",e);
+				
+			}
+		}
+	}
+	
+
+	@Override
+	protected void finalize() throws Throwable {
+		// TODO Auto-generated method stub
+		if(connect!=null)
+		{
+			connect.close();
+		}
+		super.finalize();
 	}
 	
 
