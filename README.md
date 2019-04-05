@@ -9,3 +9,13 @@ for(Integer key :hm1.keySet())
 			String value = hm1.get(key).toString();
 			System.out.println(keys +"  "+ value);
 		}
+
+
+
+
+
+for(Entry<String, String> entry : facilities.entrySet()) {
+    String key = entry.getKey();
+    String value = entry.getValue();
+    System.out.println(key + " " + value);
+}
