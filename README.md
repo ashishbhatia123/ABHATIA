@@ -29,7 +29,7 @@ public static void main(String[] args) throws IOException{
 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 int N = Integer.parseInt(br.readLine().trim());   	// by default it takes as string
  String  []inp = br.readLine().split(" ");  		 // taking spaces input 
-br.close()
+br.close();
 
 
 
