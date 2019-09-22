@@ -23,8 +23,7 @@ for(Entry<String, String> entry : facilities.entrySet()) {
 
 ===========================================================================================
 for faster execution use BufferReader and printWriter
-
-Import java.io.*;
+import java.io.*;
  
 public static void main(String[] args) throws IOException{
 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -36,7 +35,7 @@ br.close()
 
 ============================================================================================
 
-Import java.io.*;
+import java.io.*;
 PrintWriter wr = new PrintWriter(System.out);
 wr.println();
 
